@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Peer from 'peerjs';
+// import robot from 'robotjs-browser'
 import './App.css';
 
 const App = () => {
@@ -49,8 +50,10 @@ const App = () => {
       .then(localStream => {
         local.current.srcObject = localStream;
         const call = data.peer.call(data.friendId, localStream);
+        console.log("localStream" + localStream);
         call.on('stream', (remoteStream) => {
           remote.current.srcObject = remoteStream;
+          console.log("remoteStream" + remoteStream);
         });
       })
       .catch(err => {
@@ -59,7 +62,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    const peer = new Peer('office', {
+    const peer = new Peer('yanyan', {
       host: '124.222.249.224',
       port: '9000',
       path: '/myapp'
@@ -111,15 +114,15 @@ const App = () => {
   //   console.log(data);
   // },[data.messages])
 
-  useEffect(() => {
-    console.log(data);
-  }, [data])
+  // useEffect(() => {
+  //   console.log(data);
+  // }, [data])
 
   return (
     <>
       <div className='box'>
-        <video width={800} autoPlay playsInline ref={local} />
-        <video width={800} autoPlay playsInline ref={remote} />
+        <video width={700} autoPlay playsInline ref={local} />
+        <video width={700} autoPlay playsInline ref={remote} />
       </div>
       <div className="col">
         <p>本地ID: {data.myId}</p>
